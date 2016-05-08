@@ -1,0 +1,43 @@
+Nume: Otesanu Maria-Madalina
+Grupa: 333AA
+Denumirea temei: Tema 1 - Hamming ECC
+
+1. Implementare
+
+ In rezolvarea temei am efectuat urmatorii pasi:
+	- am inteles algoritmii de codificare si decodificare Hamming(15,11) + bit de paritate;
+	
+	- pentru primul subpunct al temei, codificarea Hamming, am efectuat pasii:
+		- am pus bitii de date(D1, D2, ..., D11) din "in" pe pozitiile corespunzatoare in "out";
+		- am calculat bitii de paritate folosind bitii de date conform algoritmului de codificare Hamming;
+		- am pus bitii de paritate pe pozitiile corespunzatoare in "out";
+		- formulele utilizate pentru bitii de paritate pe care le-am folosit sunt:
+			- P1 = D1 ^ D2 ^ D4 ^ D5 ^ D7 ^ D9 ^ D11;
+			- P2 = D1 ^ D3 ^ D4 ^ D6 ^ D7 ^ D10 ^ D11;
+			- P4 = D2 ^ D3 ^ D4 ^ D8 ^ D9 ^ D10 ^ D11;
+			- P8 = D5 ^ D6 ^ D7 ^ D8 ^ D9 ^ D10 ^ D11;
+		- ordinea bitilor de paritate si de date in sirul codificat este:
+			bit_paritate D11 D10 D9 D8 D7 D6 D5 P8 D4 D3 D2 P4 D1 P2 P1
+	
+	- pentru al doilea subpunct al temei, decodificarea Hamming, am urmarit pasii:
+		- am scos bitii de date si bitii de paritate din "in";
+		- am verificat corectitudinea bitilor de paritate si de date astfel:
+			- am recalculat bitii de paritate;
+			- am verificat daca bitii de paritate calculati corespund bitilor de paritate din "in";
+			- in cazul in care cel putin un bit de paritate calculat era diferit de bitul corespunzator 
+			  din "in", am obtinut pozitia bitului eronat concatenand bitii P8, P4, P2, P1, unde:
+			  P1 = P1 ^ D1 ^ D2 ^ D4 ^ D5 ^ D7 ^ D9 ^ D11;
+			  P2 = P2 ^ D1 ^ D3 ^ D4 ^ D6 ^ D7 ^ D10 ^ D11;
+			  P4 = P4 ^ D2 ^ D3 ^ D4 ^ D8 ^ D9 ^ D10 ^ D11;
+			  P8 = P8 ^ D5 ^ D6 ^ D7 ^ D8 ^ D9 ^ D10 ^ D11;
+			- daca pozitia bitului eronat era diferita de 0, schimbam bitul de pe pozitia eronata;
+			- pentru a identifica daca exista cea de-a doua eroare, am folosit bitul de paritate
+			 (cel cu indexul 16) astfel:
+				-  daca bitul de paritate era diferit de xor-ul tuturor bitilor([15:1]) atunci aveam 
+				   dubla eroare;
+				   
+2. Bibliografie
+[1] https://en.wikipedia.org/wiki/Hamming_code#General_algorithm
+[2] https://en.wikipedia.org/wiki/Parity_bit
+[3] https://en.wikipedia.org/wiki/Hamming(7,4)#All_codewords
+
